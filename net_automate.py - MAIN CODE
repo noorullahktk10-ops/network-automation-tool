@@ -1,0 +1,61 @@
+# Author: Noorullah - DevOps + Networking Portfolio
+# For Open Doors - Engineering and Technology / Information Systems
+
+from netmiko import ConnectHandler
+from datetime import datetime
+import os
+
+# --- CONFIG ---
+USERNAME = "admin"
+PASSWORD = "admin123"
+# Aap apna username/password yahan change kar sakte ho
+
+def backup_device(ip):
+    device = {
+        'device_type': 'cisco_ios',
+        'host': ip,
+        'username': USERNAME,
+        'password': PASSWORD,
+    }
+    
+    try:
+        print(f"[+] Connecting to {ip}...")
+        net_connect = ConnectHandler(**device)
+        
+        # Command jo har router par chalega
+        output = net_connect.send_command("show running-config")
+        
+        # Backup folder banao
+        if not os.path.exists("backups"):
+            os.makedirs("backups")
+            
+        # Backup save karo
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+        filename = f"backups/{ip}_{timestamp}.txt"
+        
+        with open(filename, 'w') as f:
+            f.write(output)
+            
+        print(f"[✓] Backup Saved: {filename}")
+        
+        # Extra command - Interface status
+        interfaces = net_connect.send_command("show ip int brief")
+        print(interfaces)
+        
+        net_connect.disconnect()
+        
+    except Exception as e:
+        print(f"[X] Failed for {ip}: {str(e)}")
+
+# --- MAIN ---
+if __name__ == "__main__":
+    print("=== Network Automation Tool Started ===")
+    
+    with open("devices.txt", 'r') as f:
+        devices = f.read().splitlines()
+    
+    for ip in devices:
+        if ip.strip() != "":
+            backup_device(ip.strip())
+    
+    print("=== All Devices Done ===")
