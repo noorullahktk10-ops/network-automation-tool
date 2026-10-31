@@ -1,30 +1,21 @@
-# Network Automation Tool (Python + Netmiko)
+# 🌐 Network Automation Tool - Python + Netmiko
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Netmiko](https://img.shields.io/badge/Netmiko-4.4.0-green)
 
-Automates backup and configuration of multiple Cisco routers at once. Built for NOC / Network Automation Engineer role.
+> Automates backup & config of 50+ Cisco routers in 2 minutes. Saves 2 hours of manual work.
+
+### 📸 Demo
+| Terminal Run | Backup Folder |
+|---|---|
+| `python net_automate.py` screenshot | `backups/` folder screenshot |
 
 ### 🛠 Tech Stack
-- Python 3
-- Netmiko (For SSH to routers)
-- Cisco IOS
-- Linux
+- **Language:** Python 3
+- **Library:** Netmiko for SSH
+- **Devices:** Cisco IOS
+- **Use Case:** NOC / Network Automation Engineer
 
-### 🚀 Features
-- Connects to multiple routers from devices.txt
-- Takes automatic running-config backup
-- Saves backup with timestamp
-- Checks interface status for all devices
-- Error handling for failed devices
-
-### 📸 Screenshots
-(Add 2 screenshots: 1. Code running in terminal 2. Backups folder)
-
-### ⚙️ How to Run
+### 🚀 How to Run
+```bash
 pip install -r requirements.txt
-python3 net_automate.py
-
-### 🎯 Use Case
-In real NOC, engineer has to backup 50 routers daily. This script does it in 2 minutes instead of 2 hours.
-
-### 👨‍💻 Author
-Noorullah | Networking + Python | Open Doors Applicant - Engineering and Technology
-Skills: Python, Networking, Netmiko, Linux, GitHub
+python net_automate.py
